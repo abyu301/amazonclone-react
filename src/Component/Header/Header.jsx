@@ -1,66 +1,66 @@
 import React from 'react'
+import classes from './Header.module.css'
+import LowerHeader from './LowerHeader';
+// icons
 import { SlLocationPin } from "react-icons/sl";
 import { BsSearch } from "react-icons/bs";
 import { BiCart } from "react-icons/bi";
 
 function Header() {
     return (
-        <section>
+        <>
             <section>
-                <div>
-                    {/* logo */}
-                    <a href="/"><img src="https://pngimg.com/uploads/amazon/amazon_PNG11.png" alt="" /></a>
-                    {/* delivery */}
-                    <span>
-                    <SlLocationPin />
-                    </span>
-                </div>
-                <div>
-                    <p>Delivered to</p>
-                    <span>Canada</span>
-                </div>
-                <div>
-                    {/* search */}
-                    <div>
+                <div className={classes.header__container}>
+                    <div className={classes.logo__container}>
+                        {/* logo section*/}
+                    <a href="/"><img src="https://pngimg.com/uploads/amazon/amazon_PNG11.png" alt="amazon logo" />
+                    </a>
+                    <div className={classes.delivery}>
+                        {/* delivery */}
+                        <span>
+                            <SlLocationPin />
+                        </span>
+                        <div>
+                            <p>Delivered to</p>
+                            <span>Canada</span>
+                        </div>
+                    </div>
+                    </div>  
+                    {/* search section*/}
+                    <div className={classes.search}>
                         <select name="" id="">
                             <option value="">All</option>
                         </select>
-                        <input type="text" name='' id='' placeholder='search product'/>
-                        <BsSearch />
+                        <input type="text" placeholder='Search Amazon'/>
+                        <BsSearch size={25}/>
                     </div>
-                </div>
-                <div>
-                    {/* right side link */}
-                </div>
-                <div>
-                    <div>
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Canada_flag_icon.png/800px-Canada_flag_icon.png?20200402074802" alt="" />
-                        <section name="" id="">
+                    {/* other section */}
+                    <div className={classes.order__container}>
+                        <a href="" className={classes.language}>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Canada_flag_icon.png/800px-Canada_flag_icon.png?20200402074802" alt="" />
+
+                            <section name="" id="">
                             <option value="">EN</option>
-                        </section>
-                    </div>
-                    {/* three components */}
-                    <div>
-                        <a href="">
-                            <div>
-                                <p>Sign In</p>
-                                <span>Account & Lists</span>
-                            </div>
+                            </section>
                         </a>
-                        {/* orders */}
                         <a href="">
-                            <p>Returns & Orders</p>
+                            <p>Sign In</p>
+                            <span>Account & Lists</span>
                         </a>
-                         {/* cart */}
-                        <a href="/cart">
-                        <BiCart />
+                        <a href="">
+                            <p>returns</p>
+                            <span>& Orders</span>
+                        </a>
+                        <a href="" className={classes.cart}>
+                        <BiCart size={35} />
                         <span>0</span>
                         </a>
                     </div>
                 </div>
             </section>
-        </section>
+            <LowerHeader />
+        </>
     )
 }
 
-export default Header
+export default Header;

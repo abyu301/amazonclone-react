@@ -1,14 +1,10 @@
 import './App.css';
-import Header from './Component/Header/Header';
-import CarouselEffect from './Component/Carousel/Carousel';
-import Category from './Component/Category/Category';
+import Landing from './Pages/Landing/Landing';
 
 function App() {
   return (
     <div>
-      <Header />
-      <CarouselEffect />
-      <Category />
+      <Landing />
     </div>
   );
 }

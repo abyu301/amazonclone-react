@@ -6,7 +6,7 @@ import Loader from "../Loader/Loader";
 
 function Product() {
     const [products, setProducts] = useState()
-    const [isLoading, setIsLoading] = useState(false)
+   const [isLoading, setIsLoading] = useState(false)
     useEffect(() => {
       axios.get('https://fakestoreapi.com/products')
       .then((res)=>{
@@ -17,20 +17,22 @@ function Product() {
         setIsLoading(false)
       })
     }, [])
+    
+  return (
 
-    return (
-      <>
+  <>
+  {
+    isLoading?(<Loader/>) : ( <section className={classes.products_container}>
       {
-        isLoading?(<Loader/>) : ( <section className={classes.products_container}>
-          {
           products?.map((singleProduct)=>{
-            return <ProductCard product={(singleProduct)} key={singleProduct.id}/>
-          })
-        }
-        </section> )
+            return  <ProductCard renderAdd={true} product={singleProduct} key={singleProduct.id}/>
+                })
       }
-      </>
-    )
+    </section>)
+  }
+  </>
+
+  )
 }
 
 export default Product;

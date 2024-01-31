@@ -47,7 +47,9 @@
     .products_container section {
         margin: 0 auto;
     }
-    /* .product__flexed {
+
+
+    .product__flexed {
         box-shadow: none;
         height: auto;
         display: flex;
@@ -62,10 +64,16 @@
         display: block;
         position: static;
         width: 150px;
+        height: 5%;
+        font-weight: 700;
+        border: none;
+        cursor: pointer;
+        background-color: rgb(254, 189, 105);
     }
     .product__flexed img {
         width: 300px !important;
-    } */
+        height: auto;
+    }
     @media screen and (max-width: 768px) {
         .product__flexed {
             display: flex;

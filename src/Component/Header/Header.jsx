@@ -40,9 +40,9 @@ function Header() {
                         <Link to="" className={classes.language}>
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Canada_flag_icon.png/800px-Canada_flag_icon.png?20200402074802" alt="" />
 
-                            <section name="" id="">
+                            <select name="" id="">
                             <option value="">EN</option>
-                            </section>
+                            </select>
                         </Link>
                         <Link to="">
                             <p>Sign In</p>

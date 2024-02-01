@@ -17,8 +17,9 @@
         font-weight: 700;
         border: none;
         cursor: pointer;
-        background-color: var(--primary-color);
-        width: 100%;
+        background-color: rgb(254, 189, 105);
+        width: 240px;
+        height: 5%;
         margin: 10px;
         border-radius: 30px;
         position: absolute;
@@ -28,8 +29,8 @@
     .card__container:hover .button{
         display: block;
     }
-    .button:hover {
-        background-color: var(--primary-shade);
+    .description {
+        display: none;
     }
     .rating {
         display: flex;
@@ -74,6 +75,9 @@
         width: 300px !important;
         height: auto;
     }
+    /* .description {
+        display: flex;
+    } */
     @media screen and (max-width: 768px) {
         .product__flexed {
             display: flex;

@@ -4,4 +4,3 @@ export const Type = {
     EMPTY_BASKET: "EMPTY_BASKET",
     SET_USER: "SET_USER",
     };
-  

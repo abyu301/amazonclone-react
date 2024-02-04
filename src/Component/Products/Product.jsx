@@ -6,7 +6,7 @@ import Loader from "../Loader/Loader";
 
 function Product() {
     const [products, setProducts] = useState()
-   const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     useEffect(() => {
       axios.get('https://fakestoreapi.com/products')
       .then((res)=>{

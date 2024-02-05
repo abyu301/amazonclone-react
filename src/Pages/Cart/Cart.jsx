@@ -6,6 +6,8 @@ import CurrencyFormat from '../../Component/CurrencyFormat/CurrencyFormat';
 import { Link } from 'react-router-dom';
 import classes from './Cart.module.css'
 import { Type } from '../../Utility/action.type';
+import { IoIosArrowUp } from "react-icons/io";
+import { IoIosArrowDown } from "react-icons/io";
 
 function Cart() {
     const [{basket, user }, dispatch] = useContext(DataContext);
@@ -46,11 +48,11 @@ function Cart() {
                     />
                         <div className={classes.btn_container} >
                             <button className={classes.btn} onClick={()=>increment(item)}>
-        {/* <IoIosArrowUp size={20}/> */}
+        <IoIosArrowUp size={20}/>
                             </button>
                             <span>{item.amount}</span>
                             <button className={classes.btn} onClick={()=>decrement(item.id)}>
-        {/* <IoIosArrowDown size={20}/> */}
+        <IoIosArrowDown size={20}/>
                             </button>
                             </div>
                     </section>

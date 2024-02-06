@@ -50,7 +50,7 @@ function Header() {
                             <option value="">EN</option>
                             </select>
                         </Link>
-                        <Link to="/Sign In">
+                        <Link to="/signin">
                             <p>Sign In</p>
                             <span>Account & Lists</span>
                         </Link>

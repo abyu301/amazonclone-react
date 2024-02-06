@@ -24,7 +24,10 @@ function Auth() {
                     <button className={classes.login__signInButton}>Sign In</button>
                 </form>
                 {/* agreement */}
-                <p>By signing-in you agree to the AMAZON FAKE CLONE Conditions of Use & Sale. Please See our Privacy Notice, our Cookies Notice and our Interest-Based Ads Notice.</p>
+                <p className={classes.login__privacy}>By signing-in you agree to the AMAZON FAKE CLONE Conditions of Use & Sale. Please See our Privacy Notice, our Cookies Notice and our Interest-Based Ads Notice.</p>
+
+                {/* create account btn */}
+                <button className={classes.login__registerbutton}>Create your Amazon Account</button>
             </div>
         </section>
         </>

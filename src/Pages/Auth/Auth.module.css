@@ -52,3 +52,21 @@
     margin-top: 10px;
     cursor: pointer;
 }
+.login__signInButton:hover {
+    background-color: var(--primary-shade);
+}
+.login__privacy {
+    padding: 10px 0px;
+    font-size: 14px;
+}
+.login__registerbutton {
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    height: 30px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+.login__registerbutton:hover {
+    background-color: lightgrey;
+}

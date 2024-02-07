@@ -11,8 +11,9 @@ const firebaseConfig = {
     projectId: "clone-c60ec",
     storageBucket: "clone-c60ec.appspot.com",
     messagingSenderId: "8037531262",
-    appId: "1:8037531262:web:9cf778d6efa66ff2f0622f",
-};
+    appId: "1:8037531262:web:9cf778d6efa66ff2f0622f"
+    };
+
 
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);

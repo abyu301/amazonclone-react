@@ -1,8 +1,68 @@
-import React from 'react'
-import classes from './Auth.module.css'
-import { Link } from 'react-router-dom'
+import React, { useState, useContext } from 'react';
+import classes from './Auth.module.css';
+import { Link } from 'react-router-dom';
+import{ auth } from "../../Utility/firebase";
+import { ClipLoader } from "react-spinners";
+import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
+import {DataContext} from "../../Component/DataProvider/DataProvider"
+import { Type } from '../../Utility/action.type';
+
 
 function Auth() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [{user}, dispatch] = useContext(DataContext);
+    const [loading, setLoading] = useState({
+        signIn: false,
+        signUp: false
+    });
+    
+
+    // console.log(user)
+
+
+    const authHandler = async (e)=>{
+        e.preventDefault();
+        // console.log(e.target.name);
+        if(e.target.name == "signin"){
+//firebase auth
+        setLoading({...loading, signIn:true})
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userInfo)=>{
+            // console.log(userInfo)
+            dispatch({
+                type: Type.SET_USER,
+                user: userInfo.user,
+            });
+            setLoading({...loading, signIn:false})
+        })
+        .catch((err)=>{
+            setError(err.message)
+            setLoading({...loading, signIn:false})
+        })
+        }else {
+            setLoading({...loading, signIn:true})
+            createUserWithEmailAndPassword(auth, email, password)
+        .then((userInfo)=>{
+            // console.log(userInfo)
+            dispatch({
+                type: Type.SET_USER,
+                user: userInfo.user,
+            })
+            setLoading({...loading, signIn:false})
+        })
+        .catch((err)=>{
+            setError(err.message)
+            setLoading({...loading, signIn:false})
+        })
+        }
+        
+    }
+
+    // console.log(password, email); 
+
+
     return (
         <>
         <section className={classes.login}>
@@ -15,19 +75,39 @@ function Auth() {
                 <form action="">
                     <div>
                         <label htmlFor="email">Email</label>
-                        <input type="email" id='email'/>
+                        <input value={email}  onChange={(e)=>setEmail(e.target.value)} type="email" 
+                        id='email'
+                        autoComplete="username"/>
+                        
                     </div>
                     <div>
                     <label htmlFor="password">password</label>
-                        <input type="password" id='password'/>
+                        <input 
+                        value={password} 
+                        onChange={(e)=>setPassword(e.target.value)} type="password" id='password'
+                        autoComplete="current-password"/>
                     </div>
-                    <button className={classes.login__signInButton}>Sign In</button>
+                    <button 
+                        type='submit' 
+                        onClick={authHandler}
+                        name='signin'
+                        className={classes.login__signInButton}
+                    >
+                        {loading.signIn ? <ClipLoader color="#000405"  size={15} /> : "Sign In"}
+                    </button>
+
                 </form>
                 {/* agreement */}
                 <p className={classes.login__privacy}>By signing-in you agree to the AMAZON FAKE CLONE Conditions of Use & Sale. Please See our Privacy Notice, our Cookies Notice and our Interest-Based Ads Notice.</p>
 
                 {/* create account btn */}
-                <button className={classes.login__registerbutton}>Create your Amazon Account</button>
+                <button 
+                type='submit' 
+                name='signup'
+                onClick={authHandler} 
+                className={classes.login__registerbutton}>Create your Amazon Account</button>
+                {error && <small style={{ paddingTop: "5px", color: "red" }}>{error}</small>}
+
             </div>
         </section>
         </>

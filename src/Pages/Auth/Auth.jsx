@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import classes from './Auth.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import{ auth } from "../../Utility/firebase";
 import { ClipLoader } from "react-spinners";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
@@ -17,6 +17,7 @@ function Auth() {
         signIn: false,
         signUp: false
     });
+    const navigate = useNavigate()
     
 
     // console.log(user)
@@ -36,6 +37,7 @@ function Auth() {
                 user: userInfo.user,
             });
             setLoading({...loading, signIn:false})
+            navigate("/")
         })
         .catch((err)=>{
             setError(err.message)
@@ -51,6 +53,7 @@ function Auth() {
                 user: userInfo.user,
             })
             setLoading({...loading, signIn:false})
+            navigate("/")
         })
         .catch((err)=>{
             setError(err.message)
@@ -67,7 +70,8 @@ function Auth() {
         <>
         <section className={classes.login}>
             {/* logo */}
-            <Link><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/603px-Amazon_logo.svg.png?20220213013322" alt="" />
+            <Link to="/">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/603px-Amazon_logo.svg.png?20220213013322" alt="" />
             </Link>
             {/* form */}
             <div className={classes.login__container}>

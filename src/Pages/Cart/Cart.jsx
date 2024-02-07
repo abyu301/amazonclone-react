@@ -66,7 +66,7 @@ function Cart() {
         <div className={classes.subtotal}>
             <div>
             <p>Subtotal ({basket?.length} items)</p>
-            <CurrencyFormat amount={total}/>
+            <p><CurrencyFormat amount={total}/></p>
             </div>
             <span>
             <input type="checkbox" />

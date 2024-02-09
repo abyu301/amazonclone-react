@@ -32,7 +32,7 @@ app.post("/payment/create", async(req, res)=> {
         });
     }else {
         res.status(403).json({
-            messaging: "total must be greater than 0"
+            message: "total must be greater than 0"
         });
     }
 })

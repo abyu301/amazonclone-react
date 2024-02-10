@@ -1,9 +1,12 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import classes from "./Payment.module.css";
 import LayOut from '../../Component/LayOut/LayOut';
 import { DataContext } from '../../Component/DataProvider/DataProvider';
 import ProductCard from '../../Component/Products/ProductCard'
-import { useStripe, useElements } from '@stripe/react-stripe-js';
+import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import CurrencyFormat from '../../Component/CurrencyFormat/CurrencyFormat';
+import { BsDisplay } from 'react-icons/bs';
+
 
 
 function Payment() {
@@ -11,12 +14,25 @@ function Payment() {
   const [{user, basket}]= useContext(DataContext)
   // console.log(user)
 
+  // total-Item
   const totalItem = basket?.reduce((amount, item) => {
     return item.amount + amount;
 }, 0);
 
+// total-price
+const total = basket.reduce((amount, item) => {
+  return item.price * item.amount + amount
+}, 0);
+
 const stripe = useStripe();
 const elements = useElements();
+
+const [cardError, setCardError] = useState(null)
+const handleChange = (event)=> {
+  // console.log(event)
+  event?.error?.message? setCardError(event?.error?.message): setCardError("")
+};
+
 
 
   return (
@@ -49,12 +65,26 @@ const elements = useElements();
         </div>
         <hr />
 {/* card form */}
-        <div>
+        <div className={classes.flex}>
           <h3>Payment methods</h3>
-          <div>
-            <div>
+          <div className={classes.Payment__card__container}>
+            <div className={classes.payment__details}>
               <form action="">
-                
+                {/* error */}
+                {cardError && ( <small style={{color: "red" }}>{cardError}</small>
+                )}
+                {/* card element*/}
+                <CardElement onChange={handleChange}/>
+
+                {/* price to pay */}
+                <div className={classes.payment__price}>
+                  <div>
+                    <span style={{display:"flex", gap:"10px"}}>
+                      <p> Total Order | </p> <h4><CurrencyFormat amount={total}/></h4> 
+                    </span>
+                  </div>
+                  <button> Pay Now </button>
+                </div>
               </form>
             </div>
           </div>

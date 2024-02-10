@@ -3,6 +3,7 @@ import classes from "./Payment.module.css";
 import LayOut from '../../Component/LayOut/LayOut';
 import { DataContext } from '../../Component/DataProvider/DataProvider';
 import ProductCard from '../../Component/Products/ProductCard'
+import { useStripe, useElements } from '@stripe/react-stripe-js';
 
 
 function Payment() {
@@ -13,6 +14,11 @@ function Payment() {
   const totalItem = basket?.reduce((amount, item) => {
     return item.amount + amount;
 }, 0);
+
+const stripe = useStripe();
+const elements = useElements();
+
+
   return (
     <LayOut> 
 {/* Header */}
@@ -43,7 +49,16 @@ function Payment() {
         </div>
         <hr />
 {/* card form */}
-        <div></div>
+        <div>
+          <h3>Payment methods</h3>
+          <div>
+            <div>
+              <form action="">
+                
+              </form>
+            </div>
+          </div>
+        </div>
         </section>
     </LayOut>
   )

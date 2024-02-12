@@ -9,12 +9,13 @@ import { axiosInstance } from '../../Api/axios';
 import { ClipLoader } from 'react-spinners';
 import { db } from '../../Utility/firebase';
 import { useNavigate } from 'react-router-dom';
+import { Type } from '../../Utility/action.type';
 
 
 
 function Payment() {
 
-  const [{user, basket}]= useContext(DataContext)
+  const [{user, basket}, dispatch]= useContext(DataContext)
   // console.log(user)
 
   // total-Item
@@ -69,15 +70,15 @@ const handlePayment = async (event) => {
     await db
   .collection("users")
   .doc(user.uid)
-  .collection("order")
-  .doc(paymentIntent.id) // Corrected line
+  .collection("orders")
+  .doc(paymentIntent.id)
   .set({
     basket: basket,
     amount: paymentIntent.amount,
     created: paymentIntent.created,
   });
-
-    
+  // empty the basket
+  dispatch({type:Type.EMPTY_BASKET})
 
   setProcessing(false);
   navigate("/orders", { state: { message: "You have placed a new order." } });
@@ -105,7 +106,7 @@ const handlePayment = async (event) => {
 <div className={classes.flex}>
   <h3>Delivery Address</h3>
   <div>
-    {user ? (
+    {user? (
       <>
         <div>{user.email}</div>
         <div>123 React Lane</div>
@@ -119,14 +120,21 @@ const handlePayment = async (event) => {
         <hr />
 
 {/* products */}
-        <div className={classes.flex}>
-          <h3>Review items and Delivery</h3>
-          <div>
-            {
-              basket?.map((item)=><ProductCard product={item} flex={true}/>)
-            }
-          </div>
-        </div>
+<div className={classes.flex}>
+  <h3>Review items and Delivery</h3>
+  <div>
+    {
+      basket?.map((item, i) => (
+        <ProductCard 
+          product={item} 
+          flex={true}
+          key={i}
+        />
+      ))
+    }
+  </div>
+</div>
+
         <hr />
 {/* card form */}
         <div className={classes.flex}>
@@ -142,11 +150,9 @@ const handlePayment = async (event) => {
 
                 {/* price to pay */}
                 <div className={classes.payment__price}>
-                  <div>
-                    <span style={{display:"flex", gap:"10px"}}>
-                      <p> Total Order | </p> <h4><CurrencyFormat amount={total}/></h4> 
-                    </span>
-                  </div>
+                    <p style={{display:"flex", gap:"10px"}}>
+                      Total Order | <h4><CurrencyFormat amount={total}/></h4> 
+                    </p>
                   <button type='submit'>
                     {
                       processing? (

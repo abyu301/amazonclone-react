@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import classes from './Auth.module.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,useLoaderData, useLocation } from 'react-router-dom';
 import{ auth } from "../../Utility/firebase";
 import { ClipLoader } from "react-spinners";
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
@@ -17,10 +17,10 @@ function Auth() {
         signIn: false,
         signUp: false
     });
-    const navigate = useNavigate()
-    
 
-    // console.log(user)
+    const navigate = useNavigate()
+    const navStateData = useLocation()
+    console.log(navStateData)
 
 
     const authHandler = async (e)=>{
@@ -37,7 +37,7 @@ function Auth() {
                 user: userInfo.user,
             });
             setLoading({...loading, signIn:false})
-            navigate("/")
+            navigate(navStateData?.state?.redirect || "/");
         })
         .catch((err)=>{
             setError(err.message)
@@ -53,7 +53,7 @@ function Auth() {
                 user: userInfo.user,
             })
             setLoading({...loading, signIn:false})
-            navigate("/")
+            navigate(navStateData?.state?.redirect || "/");
         })
         .catch((err)=>{
             setError(err.message)
@@ -76,6 +76,18 @@ function Auth() {
             {/* form */}
             <div className={classes.login__container}>
                 <h1>Sign In</h1>
+                {navStateData?.state?.msg && (
+                    <small
+                        style={{
+                            padding: '5px',
+                            textAlign: 'center',
+                            color:'red',
+                            fontWeight:'bold',
+                        }}
+                    >
+                        {navStateData?.state?.msg}
+                    </small>
+                )}
                 <form action="">
                     <div>
                         <label htmlFor="email">Email</label>
@@ -85,7 +97,7 @@ function Auth() {
                         
                     </div>
                     <div>
-                    <label htmlFor="password">password</label>
+                    <label htmlFor="password">Password</label>
                         <input 
                         value={password} 
                         onChange={(e)=>setPassword(e.target.value)} type="password" id='password'
@@ -110,6 +122,7 @@ function Auth() {
                 name='signup'
                 onClick={authHandler} 
                 className={classes.login__registerbutton}>Create your Amazon Account</button>
+                
                 {error && <small style={{ paddingTop: "5px", color: "red" }}>{error}</small>}
 
             </div>

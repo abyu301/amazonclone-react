@@ -102,14 +102,20 @@ const handlePayment = async (event) => {
 {/* Payment method */}
         <section className={classes.Payment}>
 {/* address */}
-        <div className={classes.flex}>
-          <h3>Delivery Address</h3>
-          <div>
-            <div>{user.email}</div>
-            <div>123 React Lane</div>
-            <div>Calgary, AB</div>
-          </div>
-        </div>
+<div className={classes.flex}>
+  <h3>Delivery Address</h3>
+  <div>
+    {user ? (
+      <>
+        <div>{user.email}</div>
+        <div>123 React Lane</div>
+        <div>Calgary, AB</div>
+      </>
+    ) : (
+      <div>Loading user data...</div>
+    )}
+  </div>
+</div>
         <hr />
 
 {/* products */}

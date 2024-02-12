@@ -8,13 +8,16 @@ const ProtectedRoute = ({ children, msg, redirect }) => {
 
     useEffect(() => {
         if (!user) {
-        navigate("/auth", { state: { msg, redirect } });
+            navigate("/signin", { state: { msg, redirect } });
         }
-    }, [user]);
+    }, [user, navigate, msg, redirect]);
+
+    // // Return null if user is not set yet
+    // if (user === null) {
+    //     return null;
+    // }
 
     return children;
 };
-
-// pyament ---> /auth (/)
 
 export default ProtectedRoute;

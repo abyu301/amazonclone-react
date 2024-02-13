@@ -79,9 +79,9 @@ const handlePayment = async (event) => {
   });
   // empty the basket
   dispatch({type:Type.EMPTY_BASKET})
-
   setProcessing(false);
   navigate("/orders", { state: { message: "You have placed a new order." } });
+  
   } catch (error) {
     console.error(error);
     setProcessing(false)
